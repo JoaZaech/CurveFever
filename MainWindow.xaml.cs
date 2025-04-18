@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using CurveFever.Views;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -19,6 +20,7 @@ namespace CurveFever
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Views.HomeView());
         }
     }
 }
