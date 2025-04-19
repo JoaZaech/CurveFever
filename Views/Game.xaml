@@ -8,15 +8,20 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Game">
-    <StackPanel Orientation="Horizontal">
-        <StackPanel Width="100">
-            <Button Content="Button"/>
-            <Button Content="Button"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="39*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Width="100" HorizontalAlignment="Left" Grid.RowSpan="2">
+            <Label HorizontalContentAlignment="Center" Background="AliceBlue" Content="Runde 5" Margin="0,10,0,10"/>
+            <StackPanel Height="76">
+                <Label Content="Player1"/>
+                <Label Content="Player2"/>
+            </StackPanel>
         </StackPanel>
-        <Canvas Name="MyCanvas" Background="White" Width="698">
-            <Line X1="10" Y1="10" X2="100" Y2="100" Stroke="Black" StrokeThickness="2"/>
-            <Rectangle Canvas.Left="120" Canvas.Top="50" Width="60" Height="40" Stroke="Blue" StrokeThickness="2"/>
-            <Ellipse Canvas.Left="200" Canvas.Top="100" Width="50" Height="50" Fill="Red"/>
+        <Canvas Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2">
+            <TextBlock Canvas.Top="10" Canvas.Left="20">Hello World!</TextBlock>
         </Canvas>
-    </StackPanel>
+    </Grid>
 </Page>
