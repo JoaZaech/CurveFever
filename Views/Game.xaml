@@ -8,16 +8,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Game">
-    <Grid>
-        <Label Content="Player 1" HorizontalAlignment="Left" Margin="268,199,0,0" VerticalAlignment="Top"/>
-        <Label Content="Player 2" HorizontalAlignment="Left" Margin="422,199,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="388,292,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="200,283,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-
-        <!-- Color Picker for Player 1 -->
-        <xctk:ColorPicker HorizontalAlignment="Left" Margin="268,250,0,0" VerticalAlignment="Top" Width="120" SelectedColorChanged="Player1ColorChanged"/>
-
-        <!-- Color Picker for Player 2 -->
-        <xctk:ColorPicker HorizontalAlignment="Left" Margin="422,250,0,0" VerticalAlignment="Top" Width="120" SelectedColorChanged="Player2ColorChanged"/>
-    </Grid>
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Width="100">
+            <Button Content="Button"/>
+            <Button Content="Button"/>
+        </StackPanel>
+        <Canvas Name="MyCanvas" Background="White" Width="698">
+            <Line X1="10" Y1="10" X2="100" Y2="100" Stroke="Black" StrokeThickness="2"/>
+            <Rectangle Canvas.Left="120" Canvas.Top="50" Width="60" Height="40" Stroke="Blue" StrokeThickness="2"/>
+            <Ellipse Canvas.Left="200" Canvas.Top="100" Width="50" Height="50" Fill="Red"/>
+        </Canvas>
+    </StackPanel>
 </Page>
