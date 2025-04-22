@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CurveFever.ViewModels;
 
 namespace CurveFever.Views
 {
@@ -23,24 +24,6 @@ namespace CurveFever.Views
         public Game()
         {
             InitializeComponent();
-        }
-        private void Player1ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            if (e.NewValue.HasValue)
-            {
-                Color player1Color = e.NewValue.Value;
-                Console.WriteLine($"Player 1 Color: {player1Color}");
-                // Verarbeiten Sie die Farbe von Spieler 1
-            }
-        }
-
-        private void Player2ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            if (e.NewValue.HasValue)
-            {
-                Color player2Color = e.NewValue.Value;
-                // Verarbeiten Sie die Farbe von Spieler 2
-            }
         }
     }
 }

@@ -8,6 +8,10 @@ namespace CurveFever.Models
 {
     class Game
     {
-        
+        public int GameRounds { get; set; }
+        public Game(int amount)
+        {
+            GameRounds = amount;
+        }
     }
 }

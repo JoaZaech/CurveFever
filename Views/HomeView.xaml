@@ -3,10 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       xmlns:local="clr-namespace:CurveFever.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomeView">
+    <Page.DataContext>
+        <viewmodels:HomeViewModel/>
+    </Page.DataContext>
     <Grid>
         <Button Cursor="Hand" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" FontSize="16" Height="40" Width="100" Click="Button_Click_2" Background="#FFD9D9D9"/>
         <ComboBox HorizontalAlignment="Right" Margin="0,0,130,20" VerticalAlignment="Bottom" Width="100" Height="40">

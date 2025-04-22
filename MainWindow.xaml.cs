@@ -9,6 +9,7 @@ using CurveFever.Views;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CurveFever.Views;
 
 namespace CurveFever
 {
@@ -20,7 +21,7 @@ namespace CurveFever
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Views.HomeView());
+            MainFrame.Navigate(new HomeView());
         }
     }
 }
