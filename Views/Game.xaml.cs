@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CurveFever.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CurveFever.ViewModels;
 
 namespace CurveFever.Views
 {
@@ -24,6 +13,11 @@ namespace CurveFever.Views
         public Game()
         {
             InitializeComponent();
+            this.Focus();
+        }
+        private void Key_Click(object sender, KeyEventArgs e)
+        {
+            MyLabel.Content = e.Key.ToString();
         }
     }
 }

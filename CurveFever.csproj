@@ -13,17 +13,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\arrows.png" />
+    <None Remove="Views\wasd.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="C:\Users\Joalu\source\repos\CurveFever\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Assets\" />
     <Folder Include="Tests\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\arrows.png" />
+    <Resource Include="Views\wasd.png" />
   </ItemGroup>
 
 </Project>

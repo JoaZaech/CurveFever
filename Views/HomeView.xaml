@@ -9,19 +9,22 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomeView">
     <Page.DataContext>
-        <viewmodels:HomeViewModel/>
+        <viewmodels:HomeViewModel />
     </Page.DataContext>
     <Grid>
         <Button Cursor="Hand" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" FontSize="16" Height="40" Width="100" Click="Button_Click_2" Background="#FFD9D9D9"/>
-        <ComboBox HorizontalAlignment="Right" Margin="0,0,130,20" VerticalAlignment="Bottom" Width="100" Height="40">
-            <ComboBox.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="#FFF0F0F0"/>
-                    <GradientStop Color="#FFD9D9D9" Offset="1"/>
-                </LinearGradientBrush>
-            </ComboBox.Background>
+
+        <ComboBox VerticalContentAlignment="Center"  HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,125,20" VerticalAlignment="Bottom" Width="139" Height="40" FontSize="16">
+            <ComboBoxItem IsSelected="True">5 Runden</ComboBoxItem>
+            <ComboBoxItem>10 Runden</ComboBoxItem>
+            <ComboBoxItem>15 Runden</ComboBoxItem>
         </ComboBox>
-        <Image HorizontalAlignment="Left" Height="62" Margin="259,183,0,0" VerticalAlignment="Top" Width="100" Source="/Views/arrows.png"/>
-        <Image HorizontalAlignment="Left" Height="63" Margin="400,183,0,0" VerticalAlignment="Top" Width="100" Source="../Assets/wasd.png"/>
+        <TextBox x:Name="PlayerName1" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="255,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="40" FontSize="16"/>
+        <TextBox x:Name="PlayerName2" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="400,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="40" FontSize="16"/>
+        <Label Content="Player 1" HorizontalAlignment="Left" Margin="255,0,0,262" VerticalAlignment="Bottom" Width="65" Foreground="White"/>
+        <Label Content="Player 2" HorizontalAlignment="Left" Margin="400,0,0,262" VerticalAlignment="Bottom" Width="65" Foreground="White" RenderTransformOrigin="0.408,-1.012"/>
+        <Image HorizontalAlignment="Left" Height="50" Margin="276,250,0,0" VerticalAlignment="Top" Width="78" Source="/Views/arrows.png"/>
+        <Image HorizontalAlignment="Left" Height="50" Margin="419,238,0,0" VerticalAlignment="Top" Width="83" Source="/Views/wasd.png"/>
+
     </Grid>
 </Page>

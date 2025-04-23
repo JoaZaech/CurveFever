@@ -1,15 +1,5 @@
-﻿using System.Text;
+﻿using CurveFever.Views;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using CurveFever.Views;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CurveFever.Views;
 
 namespace CurveFever
 {
