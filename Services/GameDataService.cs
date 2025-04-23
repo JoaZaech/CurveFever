@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CurveFever.Services
 {
-    internal class GameDataService
+    public class GameDataService
     {
         public string PlayerName1 { get; set; }
         public string PlayerName2 { get; set; }
