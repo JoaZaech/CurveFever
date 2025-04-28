@@ -26,7 +26,7 @@
             </StackPanel>
         </StackPanel>
         <Canvas x:Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <Rectangle x:Name="MyRectangle" Width="50" Height="50" Fill="Blue"/>
+           
         </Canvas>
     </Grid>
 </Page>

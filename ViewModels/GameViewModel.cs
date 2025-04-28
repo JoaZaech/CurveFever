@@ -3,7 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Drawing;
 using CurveFever.Services;
+using CurveFever.Models;
 
 namespace CurveFever.ViewModels
 {
@@ -11,23 +13,19 @@ namespace CurveFever.ViewModels
     public class GameViewModel : ViewModelBase
     {
         private readonly GameDataService _gameDataService;
+        private Game _game;
         private DispatcherTimer _gameTimer;
         private Canvas GameCanvas;
-        public int x, y;
         public string Test { get; set; } = "Test";
-        public GameViewModel(GameDataService gameDataService)
+        public GameViewModel(GameDataService gameDataService, Canvas canvas)
         {
             _gameTimer = new DispatcherTimer();
-            x = 100;
-            y = 100;
+            GameCanvas = canvas;
             _gameTimer.Tick += gameTick;
             _gameTimer.Interval = new TimeSpan(0, 0, 1);
-            StartGame();                                        
+            _game = new Game(gameDataService.Rounds, new System.Drawing.Point((int)canvas.Width, (int)canvas.Height));
             _gameDataService = gameDataService;
-        }
-        public void setCanvas(Canvas canvas)
-        {
-            GameCanvas = canvas;
+            StartGame();                                        
         }
         public void StartGame() {
             _gameTimer.Start();
@@ -36,7 +34,6 @@ namespace CurveFever.ViewModels
         void gameTick(object sender, object e)
         {
             Debug.WriteLine("1");
-            GameCanvas.SetLe
         }
 
         public void keyPressed(string key)
