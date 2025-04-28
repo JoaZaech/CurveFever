@@ -8,10 +8,7 @@
       xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game" Focusable="True" KeyUp="Key_Click">
-    <Page.DataContext>
-        <viewmodels:GameViewModel />
-    </Page.DataContext>
+      Title="Game" Focusable="True" FocusVisualStyle="{x:Null}" KeyUp="Key_Click">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>
@@ -28,8 +25,8 @@
                 <Label Content="Player2"/>
             </StackPanel>
         </StackPanel>
-        <Canvas Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock Canvas.Top="10" Canvas.Left="20">Hello World!</TextBlock>
+        <Canvas x:Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Rectangle x:Name="MyRectangle" Width="50" Height="50" Fill="Blue"/>
         </Canvas>
     </Grid>
 </Page>

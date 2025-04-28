@@ -1,5 +1,6 @@
 ﻿using CurveFever.Views;
 using System.Windows;
+using CurveFever.Services;
 
 namespace CurveFever
 {
@@ -8,10 +9,10 @@ namespace CurveFever
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(GameDataService gameDataService)
         {
             InitializeComponent();
-            MainFrame.Navigate(new HomeView());
+            MainFrame.Navigate(new HomeView(gameDataService));
         }
     }
 }

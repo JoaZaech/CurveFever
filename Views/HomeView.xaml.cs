@@ -1,4 +1,5 @@
 ﻿using CurveFever.Services;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,11 +17,15 @@ namespace CurveFever.Views
             _gameDataService = gameDataService;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = (MainWindow)Application.Current.MainWindow;
-            PlayerName1.Text = _gameDataService.PlayerName1;
-            mainWindow.MainFrame.Navigate(new Views.Game());
+            ComboBoxItem typeItem = (ComboBoxItem)RoundInput.SelectedItem;
+            _gameDataService.InitGameDataService(PlayerName1.Text, PlayerName2.Text, typeItem.Content.ToString());
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                mainWindow.MainFrame.Navigate(new Game(_gameDataService));
+            });
         }
     }
 }
