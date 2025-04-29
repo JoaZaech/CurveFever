@@ -1,59 +1,48 @@
-﻿using System.Diagnostics;
+﻿using CurveFever.ViewModels;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reactive.Linq;
+using System.Windows.Media;
 
 namespace CurveFever.Models
 {
     public class Item
     {
         private DateTime _endTime;
-        private System.Timers.Timer _timer;
-        public IObservable<Item> ExpiredObservable { get; private set; }
         public int Radius { get; }
         public ItemType Type { get; set; }
         public Point Position { get;}
-        public Guid Id { get; set; }
+        public string Id { get; set; }
+        public System.Windows.Shapes.Rectangle Rect { get; set; }
 
-        public Color Color { get; set; }
+        public System.Windows.Media.Color Color { get; set; }
 
-        public DateTime EndTime
-        {
-            get => _endTime;
-            set
-            {
-                _endTime = value;
-                StartExpirationTimer();
-                Debug.WriteLine("Start");
-            }
-        }
 
-        public Item(Point p, ItemType type)
+        public Item(int id, Point p, ItemType type)
         {
             Position = p;
-            Id = Guid.NewGuid();
-            _endTime = DateTime.Now.AddSeconds(5);
+            Id = "item_" + id.ToString();
+            GameViewModel.ItemCounter++;
+            Color = Colors.Red;
+            _endTime = DateTime.Now.AddSeconds(10);
             Type = type;
             Radius = 10;
-            ExpiredObservable = Observable.Empty<Item>();
+            initRectangle();
         }
 
-        private void StartExpirationTimer()
+        private void initRectangle()
         {
-            _timer = new System.Timers.Timer(1000);
-            _timer.Elapsed += (sender, args) =>
-            {
-                if (DateTime.Now >= EndTime)
-                {
-                    _timer.Stop();
-                    OnExpired();
-                }
-            };
-            _timer.Start();
+            Rect = new System.Windows.Shapes.Rectangle();
+            Rect.Stroke = new SolidColorBrush(Color);
+            Rect.Fill = new SolidColorBrush(Color);
+            Rect.Width = Radius;
+            Rect.Height = Radius;
+            Rect.Name = Id;
         }
 
-        private void OnExpired()
+        public bool isExpired()
         {
-            ExpiredObservable = Observable.Return(this); 
+            return DateTime.Now > _endTime;
         }
 
         public bool CheckCollision(Point playerPosition, int playerRadius)

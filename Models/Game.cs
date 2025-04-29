@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using CurveFever.Services;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reactive.Linq;
 using System.Windows.Controls;
@@ -7,16 +8,16 @@ namespace CurveFever.Models
 {
     public class Game
     {
-        public int GameRounds { get; set; }
         private Point _gameSize { get; set; }
+        private readonly GameDataService _gameDataService;
         private Random _rnd;
         public List<Item> Items { get; set; }
-        public Game(int amount, Point gameSize)
+        public Game(GameDataService gameDataService, Point gameSize)
         {
             Items = new List<Item>();
+            _gameDataService = gameDataService;
             _rnd = new Random(); 
             _gameSize = gameSize;
-            GameRounds = amount;
         }
 
         public void AddItem()
@@ -26,8 +27,9 @@ namespace CurveFever.Models
             {
                 pos = getRandomPos();
             } while (isPositionTooClose(pos));
-
-            Items.Add(new Item(pos, getRandomType()));
+            
+            Items.Add(new Item(_gameDataService.ItemCounter, pos, getRandomType()));
+            _gameDataService.ItemCounter++;
         }
 
         private ItemType getRandomType()

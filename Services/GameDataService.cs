@@ -8,7 +8,9 @@ namespace CurveFever.Services
 {
     public class GameDataService
     {
+        public int ItemCounter { get; set; } = 0;
         public string PlayerName1 { get; set; }
+        
         public string PlayerName2 { get; set; }
         public int Rounds { get; set; }
 
