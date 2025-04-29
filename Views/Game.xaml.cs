@@ -10,15 +10,23 @@ namespace CurveFever.Views
     /// </summary>
     public partial class Game : Page
     {
-        public Game(GameDataService gameDataService)
+        private readonly GameInputService _gameInputService;
+        public Game(GameDataService gameDataService, GameInputService gameInputService)
         {
-            this.Focus();
+            
             InitializeComponent();
-            this.DataContext = new GameViewModel(gameDataService, GameCanvas);
+            this.Loaded += (s, e) => Keyboard.Focus(this);
+            this.Focus();
+            this.DataContext = new GameViewModel(gameDataService, gameInputService, GameCanvas);
+            _gameInputService = gameInputService;
         }
-        private void Key_Click(object sender, KeyEventArgs e)
+        private void Key_Down(object sender, KeyEventArgs e)
         {
-            ((GameViewModel)this.DataContext).keyPressed(e.Key.ToString());
+            _gameInputService.AddKey(e.Key);
+        }
+        private void Key_Up(object sender, KeyEventArgs e)
+        {
+            _gameInputService.RemoveKey(e.Key);
         }
     }
 }

@@ -9,10 +9,10 @@ namespace CurveFever
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(GameDataService gameDataService)
+        public MainWindow(GameDataService gameDataService, GameInputService gameInputService)
         {
             InitializeComponent();
-            MainFrame.Navigate(new HomeView(gameDataService));
+            MainFrame.Navigate(new HomeView(gameDataService, gameInputService));
         }
     }
 }

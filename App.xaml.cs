@@ -14,6 +14,7 @@ namespace CurveFever
                 {
                     services.AddSingleton<MainWindow>();
                     services.AddSingleton<GameDataService>();
+                    services.AddSingleton<GameInputService>();
                 })
                 .Build();
         }

@@ -8,7 +8,7 @@
       xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game" Focusable="True" FocusVisualStyle="{x:Null}" KeyUp="Key_Click">
+      Title="Game" Focusable="True" FocusVisualStyle="{x:Null}" KeyDown="Key_Down" KeyUp="Key_Up">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>
@@ -25,8 +25,6 @@
                 <Label Content="Player2"/>
             </StackPanel>
         </StackPanel>
-        <Canvas x:Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2">
-           
-        </Canvas>
+        <Canvas x:Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2"></Canvas>
     </Grid>
 </Page>

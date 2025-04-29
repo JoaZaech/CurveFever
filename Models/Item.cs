@@ -13,7 +13,7 @@ namespace CurveFever.Models
         public ItemType Type { get; set; }
         public Point Position { get;}
         public string Id { get; set; }
-        public System.Windows.Shapes.Rectangle Rect { get; set; }
+        public System.Windows.Shapes.Ellipse Ellipse { get; set; }
 
         public System.Windows.Media.Color Color { get; set; }
 
@@ -26,18 +26,18 @@ namespace CurveFever.Models
             Color = Colors.Red;
             _endTime = DateTime.Now.AddSeconds(10);
             Type = type;
-            Radius = 10;
-            initRectangle();
+            Radius = 20;
+            initEllipse();
         }
 
-        private void initRectangle()
+        private void initEllipse()
         {
-            Rect = new System.Windows.Shapes.Rectangle();
-            Rect.Stroke = new SolidColorBrush(Color);
-            Rect.Fill = new SolidColorBrush(Color);
-            Rect.Width = Radius;
-            Rect.Height = Radius;
-            Rect.Name = Id;
+            Ellipse = new System.Windows.Shapes.Ellipse();
+            Ellipse.Stroke = new SolidColorBrush(Color);
+            Ellipse.Fill = new SolidColorBrush(Color);
+            Ellipse.Width = Radius;
+            Ellipse.Height = Radius;
+            Ellipse.Name = Id;
         }
 
         public bool isExpired()
