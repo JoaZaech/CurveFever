@@ -5,6 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       xmlns:local="clr-namespace:CurveFever.Views"
+      KeyboardNavigation.TabNavigation="None"
+      KeyboardNavigation.ControlTabNavigation="None"
+      KeyboardNavigation.DirectionalNavigation="None"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomeView">

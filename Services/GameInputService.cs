@@ -31,6 +31,7 @@ namespace CurveFever.Services
             if (_pressedKeys.Contains(Key.Left)) p1.Direction = new Vector(-1, 0);
             if (_pressedKeys.Contains(Key.Right)) p1.Direction = new Vector(1, 0);
             p1.UpdatePos();
+            Debug.WriteLine(p1.Direction.ToString());
         }
 
     }
