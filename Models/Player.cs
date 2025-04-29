@@ -1,12 +1,25 @@
-﻿using System.Drawing;
+﻿using System.Windows;
+using System.Windows.Shapes;
 
 namespace CurveFever.Models
 {
 
-    class Player
+    public class Player
     {
-        public Point StartPos { get; set; }
+        public Vector Direction;
         public Point Pos { get; set; }
+        public Polyline Trail { get; set; }
+
+        public Player()
+        {
+            Direction = new Vector(1, 0);
+        }
+
+        public void UpdatePos()
+        {
+            Pos += Direction * 2;
+            Trail.Points.Add(Pos);
+        }
 
     }
 

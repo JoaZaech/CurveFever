@@ -8,7 +8,7 @@
       xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game" Focusable="True" FocusVisualStyle="{x:Null}" KeyDown="Key_Down" KeyUp="Key_Up">
+      Title="Game" PreviewKeyDown="Key_Down" PreviewKeyUp="Key_Up" Focusable="True" FocusVisualStyle="{x:Null}" KeyDown="Key_Down" KeyUp="Key_Up">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>

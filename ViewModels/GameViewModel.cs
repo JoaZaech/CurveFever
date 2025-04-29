@@ -9,6 +9,7 @@ using CurveFever.Models;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Reactive.Linq;
+using System.Windows.Controls.Primitives;
 
 namespace CurveFever.ViewModels
 {
@@ -18,6 +19,8 @@ namespace CurveFever.ViewModels
         private readonly GameDataService _gameDataService;
         private readonly GameInputService _gameInputService;
 
+        private Player Player1;
+
         public static int ItemCounter { get; set; } = 0;
         private readonly int _gamePadding = 20;
         private Game _game;
@@ -26,16 +29,26 @@ namespace CurveFever.ViewModels
         public string Test { get; set; } = "Test";
         public GameViewModel(GameDataService gameDataService, GameInputService gameInputService, Canvas canvas)
         {
+            Player1 = new Player();
             _gameTimer = new DispatcherTimer();
             _gameInputService = gameInputService;
             GameCanvas = canvas;
             _gameTimer.Tick += gameTick;
-            _gameTimer.Interval = TimeSpan.FromMilliseconds(16);
+            _gameTimer.Interval = TimeSpan.FromMilliseconds(10);
             _game = new Game(gameDataService, new System.Drawing.Point((int)canvas.Width - _gamePadding, (int)canvas.Height - _gamePadding));
             _gameDataService = gameDataService;
             StartGame();
         }
         public void StartGame() {
+            GameCanvas.Children.Clear();
+            Player1.Pos = new System.Windows.Point(100, 100);
+            Player1.Trail = new Polyline
+            {
+                Stroke = Brushes.Lime,
+                StrokeThickness = 2
+            };
+            Player1.Trail.Points.Add(Player1.Pos);
+            GameCanvas.Children.Add(Player1.Trail);
             _gameTimer.Start();
             NewItem();
         }
@@ -61,12 +74,7 @@ namespace CurveFever.ViewModels
                     break;
                 }
             }
-            if (ItemCounter % 1000 == 0)
-            {
-                NewItem();
-            }
-            ItemCounter++;
-            _gameInputService.HandleMovement();
+            _gameInputService.HandleMovement(Player1);
         }
 
         public void KeyPressed(string key)
