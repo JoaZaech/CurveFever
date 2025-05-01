@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Drawing;
 using CurveFever.Services;
 using CurveFever.Models;
 using System.Windows.Shapes;
@@ -19,26 +18,27 @@ namespace CurveFever.ViewModels
         private readonly GameDataService _gameDataService;
         private readonly GameInputService _gameInputService;
 
-        private Player Player1, Player2;
+        private PlayerViewModel Player1, Player2;
+        private bool _toggleTrail = true;
 
         public static int ItemCounter { get; set; } = 0;
         private readonly int _gamePadding = 20;
         private Game _game;
         private DispatcherTimer _gameTimer;
         private int _tickCounter;
-        private Canvas GameCanvas;
+        public static Canvas GameCanvas;
         public string Test { get; set; } = "Test";
         public GameViewModel(GameDataService gameDataService, GameInputService gameInputService, Canvas canvas)
         {
             _tickCounter = 0;
-            Player1 = new Player(gameDataService.PlayerName1);
-            Player2 = new Player(gameDataService.PlayerName2);
+            Player1 = new PlayerViewModel(gameDataService.PlayerName1, new Point(100, 100));
+            Player2 = new PlayerViewModel(gameDataService.PlayerName2, new Point(200, 200));
             _gameTimer = new DispatcherTimer();
             _gameInputService = gameInputService;
             GameCanvas = canvas;
             _gameTimer.Tick += gameTick;
             _gameTimer.Interval = TimeSpan.FromMilliseconds(1);
-            _game = new Game(gameDataService, new System.Drawing.Point((int)canvas.Width - _gamePadding, (int)canvas.Height - _gamePadding));
+            _game = new Game(gameDataService, new Point((int)canvas.Width - _gamePadding, (int)canvas.Height - _gamePadding));
             _gameDataService = gameDataService;
             StartGame();
         }
@@ -46,29 +46,13 @@ namespace CurveFever.ViewModels
             GameCanvas.Children.Clear();
             initPlayer();
             _gameTimer.Start();
-            NewItem();
+            //NewItem();
         }
 
         public void initPlayer()
         {
-            Player1.Pos = new System.Windows.Point(100, 100);
-            Player1.Trail = new Polyline
-            {
-                Stroke = Brushes.Lime,
-                StrokeThickness = 2
-            };
-            Player2.Pos = new System.Windows.Point(200, 200);
-            Player2.Trail = new Polyline
-            {
-                Stroke = Brushes.Aqua,
-                StrokeThickness = 2
-            };
-            Player2.Trail.Points.Add(Player2.Pos);
-            GameCanvas.Children.Add(Player2.Ellipse);
-            GameCanvas.Children.Add(Player2.Trail);
-            Player1.Trail.Points.Add(Player1.Pos);
-            GameCanvas.Children.Add(Player1.Ellipse);
-            GameCanvas.Children.Add(Player1.Trail);
+            GameCanvas.Children.Add(Player1.GetEllipse());
+            GameCanvas.Children.Add(Player2.GetEllipse());
         }
 
         public void NewItem()
@@ -82,8 +66,10 @@ namespace CurveFever.ViewModels
 
         void gameTick(object sender, object e)
         {
+            
             _tickCounter++;
-            foreach (Item item in _game.Items)
+            /* 
+             foreach (Item item in _game.Items)
             {
                 if (item.isExpired())
                 {
@@ -92,11 +78,17 @@ namespace CurveFever.ViewModels
                     break;
                 }
             }
-            _gameInputService.HandleMovement(Player1, Player2, true);
-            
-           
-
+             */
+            if (_tickCounter % 20 == 0)
+            {
+                _toggleTrail = !_toggleTrail;
+                _tickCounter = 0;
+            }
+            _gameInputService.HandleMovement(Player1.Player, Player2.Player);
+            Player1.Update(_toggleTrail);
+            Player2.Update(_toggleTrail);
         }
+
 
         ~GameViewModel()
         {

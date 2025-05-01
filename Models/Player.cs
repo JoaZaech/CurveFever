@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using CurveFever.ViewModels;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -10,28 +13,20 @@ namespace CurveFever.Models
     {
         public Vector Direction;
         public Point Pos { get; set; }
+        public List<Polyline> Trails { get; set; }
         public Polyline Trail { get; set; }
         public Ellipse Ellipse { get; set; }
         public string Name { get; set; }
 
-        public Player(string name)
+        public Player(string name, Point startPos)
         {
             Name = name;
-            Direction = new Vector(1, 0);
-            Ellipse = new System.Windows.Shapes.Ellipse();
-            Ellipse.Stroke = new SolidColorBrush(Colors.Green);
-            Ellipse.Fill = new SolidColorBrush(Colors.Green);
-            Ellipse.Width = 10;
-            Ellipse.Height = 10;
-            Ellipse.Name = "player_" +  Name;
-            Panel.SetZIndex(Ellipse, 999);
+            Pos = startPos;
         }
 
-
-        public void UpdatePos(bool addTrail)
+        public void UpdatePos()
         {
             Pos += Direction * 2;
-            if(addTrail) Trail.Points.Add(Pos); 
         }
 
     }

@@ -15,7 +15,7 @@ namespace CurveFever.Services
     public class GameInputService
     {
         private readonly HashSet<Key> _pressedKeys = new HashSet<Key>();
-        private readonly Dictionary<string, Vector> _directionVectors = new Dictionary<string, Vector>{
+        public static readonly Dictionary<string, Vector> _directionVectors = new Dictionary<string, Vector>{
             { "UP", new Vector(0, -1) },
             { "DOWN", new Vector(0, 1) },
             { "LEFT", new Vector(-1, 0) },
@@ -31,7 +31,7 @@ namespace CurveFever.Services
             _pressedKeys.Remove(key);
         }
 
-        private void UpdatePlayerDirection(Player player, Key up, Key down, Key left, Key right, bool addTrail)
+        private void UpdatePlayerDirection(Player player, Key up, Key down, Key left, Key right)
         {
             Vector currentDir = player.Direction;
 
@@ -43,7 +43,8 @@ namespace CurveFever.Services
                 player.Direction = _directionVectors["LEFT"];
             else if (_pressedKeys.Contains(right) && currentDir != _directionVectors["LEFT"])
                 player.Direction = _directionVectors["RIGHT"];
-            player.UpdatePos(addTrail);
+
+            player.UpdatePos();
 
             // Correct postition of ellipse
             if(player.Direction == _directionVectors["RIGHT"] || player.Direction == _directionVectors["LEFT"])
@@ -57,10 +58,10 @@ namespace CurveFever.Services
             }
         }
 
-        public void HandleMovement(Player p1, Player p2, bool addTrail)
+        public void HandleMovement(Player p1, Player p2)
         {
-            UpdatePlayerDirection(p1, Key.Up, Key.Down, Key.Left, Key.Right, true);
-            UpdatePlayerDirection(p2, Key.W, Key.S, Key.A, Key.D, true);
+            UpdatePlayerDirection(p1, Key.Up, Key.Down, Key.Left, Key.Right);
+            UpdatePlayerDirection(p2, Key.W, Key.S, Key.A, Key.D);
         }
 
     }

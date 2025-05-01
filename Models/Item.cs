@@ -1,6 +1,6 @@
 ﻿using CurveFever.ViewModels;
 using System.Diagnostics;
-using System.Drawing;
+using System.Windows;
 using System.Reactive.Linq;
 using System.Windows.Media;
 
@@ -53,8 +53,7 @@ namespace CurveFever.Models
 
         public int GetDistance(Point p2)
         {
-            double distance = Math.Sqrt(Math.Pow(p2.X - Position.X, 2) + Math.Pow(p2.Y - Position.Y, 2));
-            return Convert.ToInt32(Math.Floor(distance));
+            return Convert.ToInt32(Math.Floor((p2 - Position).LengthSquared));
         }
 
         public override string ToString()

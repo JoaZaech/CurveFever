@@ -1,6 +1,6 @@
 ﻿using CurveFever.Services;
 using System.Diagnostics;
-using System.Drawing;
+using System.Windows;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
