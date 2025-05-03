@@ -10,6 +10,7 @@ namespace CurveFever.Models
     {
         private DateTime _endTime;
         public int Radius { get; }
+        public bool isActive { get; set; } = true;
         public ItemType Type { get; set; }
         public Point Position { get;}
         public string Id { get; set; }
@@ -42,13 +43,18 @@ namespace CurveFever.Models
 
         public bool isExpired()
         {
-            return DateTime.Now > _endTime;
+            return DateTime.Now > _endTime || !isActive;
         }
 
         public bool CheckCollision(Point playerPosition, int playerRadius)
         {
             double distance = Math.Sqrt(Math.Pow(Position.X - playerPosition.X, 2) + Math.Pow(Position.Y - playerPosition.Y, 2));
-            return distance <= (Radius + playerRadius);
+            if(distance <= (Radius + playerRadius))
+            {
+                isActive = false;
+                return true;
+            }
+            return false;
         }
 
         public int GetDistance(Point p2)

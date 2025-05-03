@@ -19,7 +19,6 @@ namespace CurveFever.ViewModels
         private readonly GameInputService _gameInputService;
 
         private PlayerViewModel[] Players;
-        private bool _isGameOver = false;
         private List<Point> _trailPoints;
         private bool _toggleTrail = true;
 
@@ -38,19 +37,21 @@ namespace CurveFever.ViewModels
             _gameTimer.Tick += gameTick;
             _gameTimer.Interval = TimeSpan.FromMilliseconds(1);
             _gameDataService = gameDataService;
-            StartGame();
+            NewGame();
         }
-        public void StartGame() {
+        public void NewGame() {
+            GameCanvas.Children.Clear();
             _tickCounter = 0;
             Players = new PlayerViewModel[2];
-            Players[0] = new PlayerViewModel(_gameDataService.PlayerName1, new Point(100, 100));
-            Players[1] = new PlayerViewModel(_gameDataService.PlayerName2, new Point(200, 200));
-            _game = new Game(_gameDataService, new Point((int)GameCanvas.Width - _gamePadding, (int)GameCanvas.Height - _gamePadding));
+            Players[0] = new PlayerViewModel(_gameDataService.PlayerName1, new Point(100, 100), Colors.Red);
+            Players[1] = new PlayerViewModel(_gameDataService.PlayerName2, new Point(200, 200), Colors.Blue);
+            var size = new Point((int)GameCanvas.Width - _gamePadding, (int)GameCanvas.Height - _gamePadding);
+            _game = new Game(_gameDataService, size, Players);
             _trailPoints = new List<Point>();
-            GameCanvas.Children.Clear();
+
             initPlayer();
             _gameTimer.Start();
-            //NewItem();
+            NewItem();
         }
 
         public void initPlayer()
@@ -72,17 +73,7 @@ namespace CurveFever.ViewModels
         {
 
             _tickCounter++;
-            /* 
-             foreach (Item item in _game.Items)
-            {
-                if (item.isExpired())
-                {
-                    GameCanvas.Children.Remove(item.Ellipse);
-                    _game.Items.Remove(item);
-                    break;
-                }
-            }
-             */
+           
             if (_tickCounter % 20 == 0)
             {
                 _toggleTrail = !_toggleTrail;
@@ -95,6 +86,23 @@ namespace CurveFever.ViewModels
             {
                 player.Update(_toggleTrail, _trailPoints);
             }
+
+            if (_game.CheckCollision(_trailPoints))
+            {
+                NewGame();
+            }
+
+            foreach (Item item in _game.Items)
+            {
+                if (item.isExpired())
+                {
+                    Debug.WriteLine("REMOVE");
+                    GameCanvas.Children.Remove(item.Ellipse);
+                    _game.Items.Remove(item);
+                    break;
+                }
+            }
+
         }
 
         ~GameViewModel()

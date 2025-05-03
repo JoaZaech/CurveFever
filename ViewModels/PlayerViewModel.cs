@@ -16,10 +16,12 @@ namespace CurveFever.ViewModels
     {
         public Player Player { get; set; }
         private bool _currentTrail = true;
+        public List<Point> TrailPoints { get; set; }
         private Color _color;
 
         public PlayerViewModel(string name, Point startPos, Color color)
         {
+            TrailPoints = new List<Point>();
             Player = new Player(name, startPos);
             _color = color;
             Player.Direction = GameInputService._directionVectors["RIGHT"];

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Reactive.Linq;
 using System.Windows.Controls;
+using CurveFever.ViewModels;
 
 namespace CurveFever.Models
 {
@@ -10,11 +11,13 @@ namespace CurveFever.Models
     {
         private Point _gameSize { get; set; }
         private readonly GameDataService _gameDataService;
+        private PlayerViewModel[] _players;
         private Random _rnd;
         public List<Item> Items { get; set; }
-        public Game(GameDataService gameDataService, Point gameSize)
+        public Game(GameDataService gameDataService, Point gameSize, PlayerViewModel[] players)
         {
             Items = new List<Item>();
+            _players = players;
             _gameDataService = gameDataService;
             _rnd = new Random(); 
             _gameSize = gameSize;
@@ -44,6 +47,72 @@ namespace CurveFever.Models
             foreach (var item in Items)
             {
                 if (item.GetDistance(newPos) < minDistance) return true;
+            }
+            return false;
+        }
+
+        public bool CheckCollision(List<Point> trailPoints)
+        {
+            //List<Point> combined = _players[0].Player.Trail.Points.ToList().Concat(_players[1].Player.Trail.Points.ToList()).ToList();
+            foreach (var player in _players)
+            {
+                if (BorderCollision(player.Player.Pos))
+                {
+                    return true;
+                }
+
+                if(TrailCollision(trailPoints, player.Player))
+                {
+                    return true;
+                }
+
+                foreach (var item in Items)
+                {
+                    if (item.CheckCollision(player.Player.Pos, 2))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool TrailCollision(List<Point> trailPoints, Player player)
+        {
+            var pointsInFront = new List<Point>();
+            player.Direction.Normalize();
+
+            foreach (var point in trailPoints)
+            {
+                Vector toPoint = point - player.Pos;
+                toPoint.Normalize();
+
+                double dot = Vector.Multiply(player.Direction, toPoint); // Dot product
+
+                double angle = Vector.AngleBetween(player.Direction, toPoint);
+
+                if (dot > 0 && Math.Abs(angle) <= 90 / 2)
+                {
+                    pointsInFront.Add(point);
+                }
+            }
+
+            foreach (var point in pointsInFront)
+            {
+                if ((player.Pos - point).Length <= 2)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public bool BorderCollision(Point pos)
+        {
+            if (pos.X < 0 || pos.X > _gameSize.X || pos.Y < 0 || pos.Y > _gameSize.Y)
+            {
+                return true;
             }
             return false;
         }
