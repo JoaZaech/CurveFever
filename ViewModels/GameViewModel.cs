@@ -18,6 +18,26 @@ namespace CurveFever.ViewModels
         private readonly GameDataService _gameDataService;
         private readonly GameInputService _gameInputService;
 
+        public string PlayerScore1
+        {
+            get { return _gameDataService.PlayerScore1; }
+            set
+            {
+                _gameDataService.PlayerScore1 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PlayerScore2
+        {
+            get { return _gameDataService.PlayerScore2; }
+            set
+            {
+                _gameDataService.PlayerScore2 = value;
+                OnPropertyChanged();
+            }
+        }
+
         private PlayerViewModel[] Players;
         private List<Point> _trailPoints;
         private bool _toggleTrail = true;
@@ -28,7 +48,7 @@ namespace CurveFever.ViewModels
         private DispatcherTimer _gameTimer;
         private int _tickCounter;
         public static Canvas GameCanvas;
-        public string Test { get; set; } = "Test";
+
         public GameViewModel(GameDataService gameDataService, GameInputService gameInputService, Canvas canvas)
         {
             _gameTimer = new DispatcherTimer();
@@ -40,6 +60,7 @@ namespace CurveFever.ViewModels
             NewGame();
         }
         public void NewGame() {
+            UpdateScore(0, 1);
             GameCanvas.Children.Clear();
             _tickCounter = 0;
             Players = new PlayerViewModel[2];
@@ -48,10 +69,9 @@ namespace CurveFever.ViewModels
             var size = new Point((int)GameCanvas.Width - _gamePadding, (int)GameCanvas.Height - _gamePadding);
             _game = new Game(_gameDataService, size, Players);
             _trailPoints = new List<Point>();
-
             initPlayer();
-            _gameTimer.Start();
             NewItem();
+            _gameTimer.Start();
         }
 
         public void initPlayer()
@@ -77,6 +97,7 @@ namespace CurveFever.ViewModels
             if (_tickCounter % 20 == 0)
             {
                 _toggleTrail = !_toggleTrail;
+                _gameDataService.PlayerScore2 = "111";
                 _tickCounter = 0;
             }
 
@@ -96,7 +117,6 @@ namespace CurveFever.ViewModels
             {
                 if (item.isExpired())
                 {
-                    Debug.WriteLine("REMOVE");
                     GameCanvas.Children.Remove(item.Ellipse);
                     _game.Items.Remove(item);
                     break;
@@ -108,6 +128,11 @@ namespace CurveFever.ViewModels
         ~GameViewModel()
         {
             _gameTimer.Tick -= gameTick;
+        }
+        public void UpdateScore(int player1, int player2)
+        {
+            PlayerScore1 = _gameDataService.PlayerName1 + " " + player1.ToString();
+            PlayerScore2 = _gameDataService.PlayerName1 + " " + player2.ToString();
         }
     }
 }

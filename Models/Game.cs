@@ -53,9 +53,9 @@ namespace CurveFever.Models
 
         public bool CheckCollision(List<Point> trailPoints)
         {
-            //List<Point> combined = _players[0].Player.Trail.Points.ToList().Concat(_players[1].Player.Trail.Points.ToList()).ToList();
             foreach (var player in _players)
             {
+
                 if (BorderCollision(player.Player.Pos))
                 {
                     return true;
@@ -68,11 +68,9 @@ namespace CurveFever.Models
 
                 foreach (var item in Items)
                 {
-                    if (item.CheckCollision(player.Player.Pos, 2))
-                    {
-                        return false;
-                    }
+                    item.CheckCollision(player.Player.Pos, 2);
                 }
+
             }
             return false;
         }
@@ -88,7 +86,6 @@ namespace CurveFever.Models
                 toPoint.Normalize();
 
                 double dot = Vector.Multiply(player.Direction, toPoint); // Dot product
-
                 double angle = Vector.AngleBetween(player.Direction, toPoint);
 
                 if (dot > 0 && Math.Abs(angle) <= 90 / 2)
