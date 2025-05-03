@@ -53,7 +53,7 @@ namespace CurveFever.Models
 
         public int GetDistance(Point p2)
         {
-            return Convert.ToInt32(Math.Floor((p2 - Position).LengthSquared));
+            return Convert.ToInt32(Math.Floor((p2 - Position).Length));
         }
 
         public override string ToString()

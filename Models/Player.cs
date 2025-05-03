@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace CurveFever.Models
@@ -12,8 +13,8 @@ namespace CurveFever.Models
     public class Player
     {
         public Vector Direction;
+        public double Speed { get; set; } = 1.2;
         public Point Pos { get; set; }
-        public List<Polyline> Trails { get; set; }
         public Polyline Trail { get; set; }
         public Ellipse Ellipse { get; set; }
         public string Name { get; set; }
@@ -26,7 +27,7 @@ namespace CurveFever.Models
 
         public void UpdatePos()
         {
-            Pos += Direction * 2;
+            Pos += Direction * Speed;
         }
 
     }

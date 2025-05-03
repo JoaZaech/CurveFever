@@ -10,19 +10,19 @@ using CurveFever.Models;
 using System.Windows;
 using CurveFever.Services;
 using System.Diagnostics;
-
 namespace CurveFever.ViewModels
 {
     public class PlayerViewModel
     {
         public Player Player { get; set; }
         private bool _currentTrail = true;
+        private Color _color;
 
-        public PlayerViewModel(string name, Point startPos)
+        public PlayerViewModel(string name, Point startPos, Color color)
         {
             Player = new Player(name, startPos);
+            _color = color;
             Player.Direction = GameInputService._directionVectors["RIGHT"];
-            //newTrail();
             initEllipse();
             Panel.SetZIndex(Player.Ellipse, 999);
         }
@@ -31,7 +31,7 @@ namespace CurveFever.ViewModels
         {
             Player.Trail = new Polyline
             {
-                Stroke = Brushes.Lime,
+                Stroke = new SolidColorBrush(_color),
                 StrokeThickness = 2
             };
             Player.Trail.Points.Add(Player.Pos);
@@ -40,8 +40,8 @@ namespace CurveFever.ViewModels
         private void initEllipse()
         {
             Player.Ellipse = new Ellipse();
-            Player.Ellipse.Stroke = new SolidColorBrush(Colors.Green);
-            Player.Ellipse.Fill = new SolidColorBrush(Colors.Green);
+            Player.Ellipse.Stroke = new SolidColorBrush(_color);
+            Player.Ellipse.Fill = new SolidColorBrush(_color);
             Player.Ellipse.Width = 10;
             Player.Ellipse.Height = 10;
             Player.Ellipse.Name = "player_" + Player.Name;
@@ -57,23 +57,23 @@ namespace CurveFever.ViewModels
             return Player.Trail;
         }
 
-        public void Update(bool addTrail)
+        public void Update(bool addTrail, List<Point> trailpoints)
         {
             if (addTrail && Player.Trail == null)
             {
                 newTrail();
-                Debug.WriteLine("Adding new trail");
                 GameViewModel.GameCanvas.Children.Add(Player.Trail);
             }
             else if(addTrail && Player.Trail != null)
             {
                 Player.Trail.Points.Add(Player.Pos);
-            }else if (!addTrail && Player.Trail != null)
+                trailpoints.Add(Player.Pos);
+            }
+            else if (!addTrail && Player.Trail != null)
             {
+                // Add finished trail
                 Player.Trail = null;
             }
-
-
         }
     }
 }

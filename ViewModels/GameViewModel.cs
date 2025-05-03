@@ -18,7 +18,9 @@ namespace CurveFever.ViewModels
         private readonly GameDataService _gameDataService;
         private readonly GameInputService _gameInputService;
 
-        private PlayerViewModel Player1, Player2;
+        private PlayerViewModel[] Players;
+        private bool _isGameOver = false;
+        private List<Point> _trailPoints;
         private bool _toggleTrail = true;
 
         public static int ItemCounter { get; set; } = 0;
@@ -30,19 +32,21 @@ namespace CurveFever.ViewModels
         public string Test { get; set; } = "Test";
         public GameViewModel(GameDataService gameDataService, GameInputService gameInputService, Canvas canvas)
         {
-            _tickCounter = 0;
-            Player1 = new PlayerViewModel(gameDataService.PlayerName1, new Point(100, 100));
-            Player2 = new PlayerViewModel(gameDataService.PlayerName2, new Point(200, 200));
             _gameTimer = new DispatcherTimer();
             _gameInputService = gameInputService;
             GameCanvas = canvas;
             _gameTimer.Tick += gameTick;
             _gameTimer.Interval = TimeSpan.FromMilliseconds(1);
-            _game = new Game(gameDataService, new Point((int)canvas.Width - _gamePadding, (int)canvas.Height - _gamePadding));
             _gameDataService = gameDataService;
             StartGame();
         }
         public void StartGame() {
+            _tickCounter = 0;
+            Players = new PlayerViewModel[2];
+            Players[0] = new PlayerViewModel(_gameDataService.PlayerName1, new Point(100, 100));
+            Players[1] = new PlayerViewModel(_gameDataService.PlayerName2, new Point(200, 200));
+            _game = new Game(_gameDataService, new Point((int)GameCanvas.Width - _gamePadding, (int)GameCanvas.Height - _gamePadding));
+            _trailPoints = new List<Point>();
             GameCanvas.Children.Clear();
             initPlayer();
             _gameTimer.Start();
@@ -51,8 +55,8 @@ namespace CurveFever.ViewModels
 
         public void initPlayer()
         {
-            GameCanvas.Children.Add(Player1.GetEllipse());
-            GameCanvas.Children.Add(Player2.GetEllipse());
+            GameCanvas.Children.Add(Players[0].GetEllipse());
+            GameCanvas.Children.Add(Players[1].GetEllipse());
         }
 
         public void NewItem()
@@ -66,7 +70,7 @@ namespace CurveFever.ViewModels
 
         void gameTick(object sender, object e)
         {
-            
+
             _tickCounter++;
             /* 
              foreach (Item item in _game.Items)
@@ -84,11 +88,14 @@ namespace CurveFever.ViewModels
                 _toggleTrail = !_toggleTrail;
                 _tickCounter = 0;
             }
-            _gameInputService.HandleMovement(Player1.Player, Player2.Player);
-            Player1.Update(_toggleTrail);
-            Player2.Update(_toggleTrail);
-        }
 
+            _gameInputService.HandleMovement(Players[0].Player, Players[1].Player);
+
+            foreach(var player in Players)
+            {
+                player.Update(_toggleTrail, _trailPoints);
+            }
+        }
 
         ~GameViewModel()
         {
