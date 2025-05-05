@@ -10,24 +10,34 @@
       KeyboardNavigation.DirectionalNavigation="None"
       xmlns:viewmodels="clr-namespace:CurveFever.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game" PreviewKeyDown="Key_Down" PreviewKeyUp="Key_Up" Focusable="True" FocusVisualStyle="{x:Null}" KeyDown="Key_Down" KeyUp="Key_Up">
-    <Grid Focusable="False">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="241*"/>
-            <ColumnDefinition Width="559*"/>
-        </Grid.ColumnDefinitions>
+      Title="Game" PreviewKeyDown="Key_Down" PreviewKeyUp="Key_Up" Focusable="True" FocusVisualStyle="{x:Null}" KeyDown="Key_Down" KeyUp="Key_Up" MinWidth="1200" MinHeight="623">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="39*"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Focusable="False" Width="100" HorizontalAlignment="Left" Grid.RowSpan="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Focusable="False" HorizontalAlignment="Left">
             <StackPanel Background="White">
                 <Label x:Name="MyLabel" Content="Leaderboard" HorizontalAlignment="Center"/>
                 <Label x:Name="MyLa2bel" Content="{Binding PlayerScore1}" HorizontalAlignment="Center"/>
                 <Label x:Name="MyLa22bel" Content="{Binding PlayerScore2}" HorizontalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
-        <Canvas Focusable="False" x:Name="GameCanvas" Background="AliceBlue" Margin="100,0,0,0" Height="450" Width="700" Grid.RowSpan="2" Grid.ColumnSpan="2"></Canvas>
+        <Grid Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Canvas Grid.Row="1" Focusable="False" x:Name="GameCanvas" Background="White" Height="500"  Width="1000"></Canvas>
+        </Grid>
+        
     </Grid>
 </Page>

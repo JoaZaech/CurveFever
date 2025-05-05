@@ -8,8 +8,8 @@
         KeyboardNavigation.ControlTabNavigation="None"
         KeyboardNavigation.DirectionalNavigation="None"
         mc:Ignorable="d"
-        Title="Curve Fever" Height="450" Width="800">
+        Title="Curve Fever" MinWidth="1200" MinHeight="620">
     <Grid Background="#272727">
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" MinWidth="1200" MinHeight="600"/>
     </Grid>
 </Window>

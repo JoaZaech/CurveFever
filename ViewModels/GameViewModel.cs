@@ -7,7 +7,6 @@ using CurveFever.Services;
 using CurveFever.Models;
 using System.Windows.Shapes;
 using System.Windows.Media;
-using System.Reactive.Linq;
 using System.Windows.Controls.Primitives;
 
 namespace CurveFever.ViewModels
@@ -65,7 +64,7 @@ namespace CurveFever.ViewModels
             _tickCounter = 0;
             Players = new PlayerViewModel[2];
             Players[0] = new PlayerViewModel(_gameDataService.PlayerName1, new Point(100, 100), Colors.Red);
-            Players[1] = new PlayerViewModel(_gameDataService.PlayerName2, new Point(200, 200), Colors.Blue);
+            Players[1] = new PlayerViewModel(_gameDataService.PlayerName2, new Point(100, 200), Colors.Blue);
             var size = new Point((int)GameCanvas.Width - _gamePadding, (int)GameCanvas.Height - _gamePadding);
             _game = new Game(_gameDataService, size, Players);
             _trailPoints = new List<Point>();

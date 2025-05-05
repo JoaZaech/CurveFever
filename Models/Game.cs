@@ -1,7 +1,6 @@
 ﻿using CurveFever.Services;
 using System.Diagnostics;
 using System.Windows;
-using System.Reactive.Linq;
 using System.Windows.Controls;
 using CurveFever.ViewModels;
 
